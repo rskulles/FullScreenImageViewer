@@ -10,43 +10,39 @@ namespace FullScreenPictureViewer
 {
     internal class Program
     {
+
+        private static KeyManager _keyManager;
+        private static WindowManager _windowManager;
+
+        private static void CloseApp(){
+            _windowManager.Close();
+        }
+
         static void Main(string[] args)
         {
             if (args.Length > 0)
             {
-                
-
+                IKeyConfig config = new DefaultKeyConfig();
+                _keyManager = new KeyManager(config);
+                _keyManager.Subscribe(ApplicationActionType.Close, CloseApp);
                 var path = args[0];
                 if (File.Exists(path))
                 {
 
-                    var manager = new WindowManager(new NullManager());
-                    manager.SetScene(new ImageScene(path));
-                    manager.Run();
+                    _windowManager = new WindowManager(_keyManager);
+                     _windowManager.SetScene(new ImageScene(path));
+                     _windowManager.Run();
                 }
                 else if (Directory.Exists(path))
                 {
-                    IKeyConfig config = new DefaultKeyConfig();
-                    var applicationKeyManager = new KeyManager(config);
-                    var manager = new WindowManager(applicationKeyManager);
-                    manager.SetScene(new MultiImageScene(path, applicationKeyManager));
-                    manager.Run();
+                    
+                   
+                   _windowManager = new WindowManager(_keyManager);
+                     _windowManager.SetScene(new MultiImageScene(path, _keyManager));
+                     _windowManager.Run();
                 }
             }
         }
     }
-
-    internal class NullManager : IApplicationKeyManager
-    {
-        public IReadOnlyDictionary<Keyboard.Key, ApplicationAction> KeyHandlers { get; }
-
-        public NullManager()
-        {
-            KeyHandlers = new Dictionary<Keyboard.Key, ApplicationAction>();
-        }
-        public void Handle(ApplicationActionType appAction)
-        {
-            //No Op
-        }
-    }
+   
 }

@@ -3,7 +3,8 @@
     public enum ApplicationActionType
     {
         PreviousImage,
-        NextImage
+        NextImage,
+        Close
     }
 
     public class ApplicationAction

@@ -8,6 +8,7 @@ namespace FullScreenPictureViewer.Graphics.Window
         {
             {Keyboard.Key.Left,new ApplicationAction("Previous Image",ApplicationActionType.PreviousImage) },
             {Keyboard.Key.Right,new ApplicationAction("Next Image",ApplicationActionType.NextImage) },
+            {Keyboard.Key.Escape,new ApplicationAction("Close", ApplicationActionType.Close)}
         };
     }
 }

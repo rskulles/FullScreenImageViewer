@@ -146,5 +146,9 @@ namespace FullScreenPictureViewer.Graphics.Window
                 _window.Draw(_currentScene);
             _window.Display();
         }
+
+        public void Close(){
+            _isRunning = false;
+        }
     }
 }

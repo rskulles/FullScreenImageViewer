@@ -35,9 +35,8 @@ namespace FullScreenPictureViewer
                 }
                 else if (Directory.Exists(path))
                 {
-                    
-                   
-                   _windowManager = new WindowManager(_keyManager);
+                                      
+                     _windowManager = new WindowManager(_keyManager);
                      _windowManager.SetScene(new MultiImageScene(path, _keyManager));
                      _windowManager.Run();
                 }
